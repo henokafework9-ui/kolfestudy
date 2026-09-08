@@ -143,6 +143,7 @@ const defaultExams = [
 ];
 
 const subjectsList = ['All', 'Mathematics', 'Chemistry', 'Physics', 'Biology', 'English', 'History', 'Economics', 'Geography', 'Aptitude'];
+// Exams are freely accessible; per-exam payment removed.
 
 export default function ExamsPage() {
   const [exams, setExams] = useState([]);
@@ -170,21 +171,24 @@ export default function ExamsPage() {
       });
   }, []);
 
+  const handleExamAccessRequest = (exam) => {
+    setPreviewFile(exam);
+  };
+
+  // No per-exam payment flow required.
+
   // Filter exams by activeTab (school / national / all), search query, and subject
   const filteredExams = useMemo(() => {
     return exams.filter((exam) => {
-      // Category filter
       const matchesCategory =
         activeTab === 'all' ||
         (activeTab === 'school' && exam.category !== 'national') ||
         (activeTab === 'national' && exam.category === 'national');
 
-      // Subject filter
       const matchesSubject =
         selectedSubject === 'All' ||
         (exam.subject && exam.subject.toLowerCase().includes(selectedSubject.toLowerCase()));
 
-      // Search filter
       const query = search.toLowerCase().trim();
       const matchesSearch =
         !query ||
@@ -501,9 +505,15 @@ export default function ExamsPage() {
                 <p style={{ color: '#64748b', fontStyle: 'italic' }}>No school exams matching current filter.</p>
               ) : (
                 <div className="exam-cards-grid">
-                  {schoolExams.map((exam) => (
-                    <ExamCard key={exam.id} exam={exam} onPreview={setPreviewFile} />
-                  ))}
+                        {schoolExams.map((exam) => (
+                          <ExamCard
+                            key={exam.id}
+                            exam={exam}
+                            isNational={exam.category === 'national'}
+                            onPreview={handleExamAccessRequest}
+                            onDownload={handleExamAccessRequest}
+                          />
+                        ))}
                 </div>
               )}
             </div>
@@ -569,7 +579,7 @@ export default function ExamsPage() {
               ) : (
                 <div className="exam-cards-grid">
                   {nationalExams.map((exam) => (
-                    <ExamCard key={exam.id} exam={exam} isNational onPreview={setPreviewFile} />
+                    <ExamCard key={exam.id} exam={exam} isNational onPreview={setPreviewFile} onDownload={setPreviewFile} />
                   ))}
                 </div>
               )}
@@ -583,17 +593,33 @@ export default function ExamsPage() {
                 key={exam.id}
                 exam={exam}
                 isNational={exam.category === 'national'}
-                onPreview={setPreviewFile}
+                onPreview={handleExamAccessRequest}
+                onDownload={handleExamAccessRequest}
               />
             ))}
           </div>
         )}
       </section>
 
+      {/* per-exam payment removed; exams are free to access */}
+
       {/* PDF PREVIEW MODAL */}
       {previewFile && (
         <div className="exam-modal-backdrop" onClick={() => setPreviewFile(null)}>
-          <div className="exam-modal-box" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="exam-modal-box"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '95vw',
+              maxWidth: '1100px',
+              height: '85vh',
+              display: 'flex',
+              flexDirection: 'column',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 20px 60px rgba(2,6,23,0.6)'
+            }}
+          >
             {/* Modal Header */}
             <div
               className="exam-modal-header"
@@ -656,11 +682,11 @@ export default function ExamsPage() {
             </div>
 
             {/* Modal Body / PDF Viewer */}
-            <div style={{ flex: 1, background: '#334155' }}>
+            <div style={{ flex: 1, background: '#0b1220', display: 'flex' }}>
               <iframe
                 src={`${previewFile.fileUrl}#toolbar=0`}
                 title={previewFile.title}
-                style={{ width: '100%', height: '100%', border: 'none' }}
+                style={{ width: '100%', height: '100%', border: 'none', minHeight: '60vh' }}
               />
             </div>
           </div>
@@ -671,7 +697,9 @@ export default function ExamsPage() {
 }
 
 // Single Exam Card Component
-function ExamCard({ exam, isNational, onPreview }) {
+function ExamCard({ exam, isNational, onPreview, onDownload }) {
+  const canAccess = true; // all exams are freely accessible
+
   return (
     <div
       style={{

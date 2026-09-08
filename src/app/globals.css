@@ -166,6 +166,12 @@ main {
   padding-bottom: 4rem;
 }
 
+@media (max-width: 700px) {
+  .challenge-monthly-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* Image Card Showcase */
 .img-card {
   border-radius: 16px;
@@ -538,4 +544,3 @@ main {
     display: none;
   }
 }
-

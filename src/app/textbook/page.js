@@ -1,27 +1,26 @@
 "use client";
-
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from 'react';
 import {
   BookOpen,
-  Search,
   Download,
-  Eye,
+  Search,
   Filter,
   GraduationCap,
-  Sparkles,
-  X,
   Grid,
   List,
+  X,
+  Eye,
+  Bookmark,
+  Sparkles,
   CheckCircle2,
+  Layers,
+  Award,
+  Share2,
+  ChevronRight,
   FileText,
   Clock,
   BookMarked,
-  Share2,
-  ChevronRight,
-  Bookmark,
-  Layers,
-  Award,
-} from "lucide-react";
+} from 'lucide-react';
 
 // Fixed static dataset for books - ALWAYS offline ready, NO DB dependency
 const booksData = [
@@ -355,6 +354,7 @@ const booksData = [
     bgGradient: "from-blue-600 via-indigo-600 to-purple-700",
     description: "New curriculum Grade 11 Mathematics student textbook covering Functions, Vectors, Matrices, and Trigonometry.",
   },
+ 
   {
     id: 26,
     grade: 11,
@@ -1940,7 +1940,7 @@ export default function BooksPage() {
                 style={{
                   width: "100%",
                   height: "100%",
-                  minHeight: "550px",
+                  minHeight: "800px",
                   border: "none",
                 }}
               />

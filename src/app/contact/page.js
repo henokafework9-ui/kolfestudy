@@ -94,7 +94,7 @@ export default function Contact() {
               <span style={{ fontSize: '1.4rem' }}>📞</span>
               <div>
                 <strong>Telephone Support:</strong>
-                <div> 0910443488</div>
+                <div> 0947257165</div>
                 <div></div>
               </div>
             </div>
@@ -103,8 +103,8 @@ export default function Contact() {
               <span style={{ fontSize: '1.4rem' }}>✉️</span>
               <div>
                 <strong>Email Address:</strong>
-                <div>info.kolfegeneralsecondary.school@addislearning.edu.et
-</div>
+              
+
                 <div>kolfestudy1@gmail.com</div>
               </div>
             </div>

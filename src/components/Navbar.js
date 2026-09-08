@@ -13,6 +13,7 @@ import {
   Info, 
   PhoneCall, 
   ShieldCheck,
+  Trophy,
   ChevronRight
 } from 'lucide-react';
 
@@ -55,9 +56,10 @@ export default function Navbar() {
     { label: 'Home', href: '/', icon: Home },
     { label: 'Exams', href: '/exams', icon: FileText },
     { label: 'Textbook', href: '/textbook', icon: BookOpen },
+    { label: 'Challenge', href: '/challange', icon: Trophy },
     { label: 'News', href: '/news', icon: Newspaper },
     { label: 'About', href: '/about', icon: Info },
-    { label: 'Contact', href: '/contact', icon: PhoneCall },
+    { label: 'Contact us', href: '/contact', icon: PhoneCall },
   ];
 
   const isActive = (path) => {
@@ -151,7 +153,27 @@ export default function Navbar() {
               );
             })}
 
-            {/* Admin Portal Button */}
+            {/* Admin Portal and Log in  Button */}
+             <Link 
+              href="/pro-login" 
+              style={{ 
+                padding: '0.5rem 1.1rem', 
+                fontSize: '0.92rem', 
+                borderRadius: '12px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                color: '#0b1220',
+                fontWeight: 800,
+                background: 'linear-gradient(90deg, #fef08a, #f97316)',
+                boxShadow: '0 8px 20px rgba(249,115,22,0.18)',
+                transform: 'translateZ(0)',
+                textDecoration: 'none'
+              }}
+            >
+              <ShieldCheck size={18} />
+              <span>Log in</span>
+            </Link>
             <Link 
               href="/admin" 
               className="btn-primary nav-admin-btn"
@@ -296,6 +318,31 @@ export default function Navbar() {
 
         {/* Bottom Action in Drawer */}
         <div style={{ marginTop: '2rem', pt: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <Link
+            href="/pro-login"
+            onClick={() => setIsOpen(false)}
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+              padding: '0.85rem',
+              fontSize: '0.95rem',
+              borderRadius: '12px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.6rem',
+              background: 'linear-gradient(90deg, #fef08a, #fb923c)',
+              color: '#0b1220',
+              fontWeight: 800,
+              boxShadow: '0 8px 24px rgba(251,146,60,0.12)',
+              textDecoration: 'none',
+            }}
+          >
+            <ShieldCheck size={18} />
+            <span>Log in</span>
+          </Link>
+
+          <div style={{ height: '0.6rem' }} />
+
           <Link
             href="/admin"
             onClick={() => setIsOpen(false)}

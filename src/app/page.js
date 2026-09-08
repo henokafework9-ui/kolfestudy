@@ -1,6 +1,63 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [session, setSession] = useState(null);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = JSON.parse(localStorage.getItem('kolfe_pro_student_session') || 'null');
+      setSession(saved);
+    } catch {
+      setSession(null);
+    } finally {
+      setChecking(false);
+    }
+  }, []);
+
+  if (checking) {
+    return (
+      <main style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', padding: '2rem' }}>
+        <div className="glass glass-card" style={{ padding: '2rem 3rem', textAlign: 'center' }}>
+          <strong>Checking access...</strong>
+        </div>
+      </main>
+    );
+  }
+
+  const hasActiveAccess = !!session?.accessActive;
+
+  if (!hasActiveAccess) {
+    return (
+      <main style={{ minHeight: '70vh', display: 'grid', placeItems: 'center', padding: '2rem' }}>
+        <div className="glass glass-card" style={{ maxWidth: '640px', width: '100%', padding: '2rem', textAlign: 'center' }}>
+          <span className="badge">Professional access required</span>
+          <h1 style={{ fontSize: '2.2rem', margin: '1rem 0 0.75rem' }}>Login or create your account first</h1>
+          <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+            Please log in or create your professional student account before using the website. Your request will be reviewed and approved.
+          </p>
+
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
+            <Link href="/pro-login" className="btn-primary" style={{ padding: '0.9rem 1.5rem' }}>
+              Login
+            </Link>
+            <Link href="/pro-account" className="btn-secondary" style={{ padding: '0.9rem 1.5rem' }}>
+              Create Account
+            </Link>
+          </div>
+
+          <div style={{ background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: '12px', padding: '1rem 1.2rem', color: '#9a4d00', fontWeight: 700 }}>
+            Pending approval: wait up to 5 hours or call 0947257165
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main>
       {/* Hero Section */}
@@ -253,27 +310,106 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Call to Action Banner */}
-      <section className="container" style={{ marginTop: '5rem' }}>
-        <div className="glass glass-card" style={{ 
-          background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
-          color: 'white',
-          textAlign: 'center',
-          padding: '3.5rem 2rem'
-        }}>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '1rem', color: '#ffffff' }}>
-            Ready to Accelerate Your Learning?
-          </h2>
-          <p style={{ fontSize: '1.15rem', color: '#e0e7ff', maxWidth: '650px', margin: '0 auto 2rem' }}>
-            Start revising today with our comprehensive past exam archives and grade-wise textbooks.
-          </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/exams" className="btn-secondary" style={{ background: '#ffffff', color: 'var(--primary)', border: 'none' }}>
-              Explore Exam Repository
-            </Link>
-            <Link href="/contact" className="btn-secondary" style={{ background: 'transparent', color: '#ffffff', border: '2px solid #ffffff' }}>
-              Contact Administration
-            </Link>
+      <section className="container" style={{ marginTop: '5rem', marginBottom: '3rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          <div
+            className="glass glass-card"
+            style={{
+              background: 'linear-gradient(135deg, #fef3c7 0%, #fbbf24 26%, #f59e0b 52%, #b45309 100%)',
+              color: '#fffaf0',
+              textAlign: 'left',
+              padding: '2rem 1.5rem',
+              borderRadius: '28px',
+              border: '1px solid rgba(255,255,255,0.35)',
+              boxShadow: '0 22px 45px rgba(245, 158, 11, 0.26)',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: '18px',
+                right: '18px',
+                width: '58px',
+                height: '58px',
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.18)',
+                display: 'grid',
+                placeItems: 'center',
+                border: '2px solid rgba(255,255,255,0.4)',
+                fontSize: '1.8rem',
+                boxShadow: 'inset 0 2px 8px rgba(255,255,255,0.25)',
+              }}
+            >
+              🏆
+            </div>
+
+            <p style={{ margin: '0 0 0.55rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', fontSize: '0.72rem', color: '#fff7d6' }}>
+              Student challenge
+            </p>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 800, margin: '0 0 0.9rem', color: '#ffffff' }}>
+              Join the weekly challenge now
+            </h2>
+            <p style={{ fontSize: '1.03rem', color: '#fff7ed', maxWidth: '500px', margin: '0 0 1.5rem', lineHeight: 1.6 }}>
+              Test your knowledge, answer 10 smart questions in 10 minutes, and compete for the top leaderboard spot.
+            </p>
+            <div style={{ display: 'flex', gap: '0.9rem', flexWrap: 'wrap' }}>
+              <Link href="/challange" className="btn-secondary" style={{ background: '#ffffff', color: '#7c2d12', border: 'none', fontWeight: 800 }}>
+                🚀 Join Challenge
+              </Link>
+              <Link href="/contact" className="btn-secondary" style={{ background: 'transparent', color: '#ffffff', border: '2px solid rgba(255,255,255,0.7)' }}>
+                Contact Administration
+              </Link>
+            </div>
+          </div>
+
+          <div className="glass glass-card" style={{ 
+            background: 'linear-gradient(135deg, #1d4ed8 0%, #4f46e5 38%, #7c3aed 100%)',
+            color: 'white',
+            textAlign: 'left',
+            padding: '2rem 1.5rem',
+            borderRadius: '28px',
+            boxShadow: '0 22px 45px rgba(79, 70, 229, 0.24)',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: '18px',
+                right: '18px',
+                width: '58px',
+                height: '58px',
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.12)',
+                display: 'grid',
+                placeItems: 'center',
+                border: '2px solid rgba(255,255,255,0.38)',
+                fontSize: '1.8rem',
+                boxShadow: 'inset 0 2px 8px rgba(255,255,255,0.18)',
+              }}
+            >
+              📘
+            </div>
+
+            <p style={{ margin: '0 0 0.55rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', fontSize: '0.72rem', color: '#dbeafe' }}>
+              learning portal
+            </p>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 800, margin: '0 0 0.9rem', color: '#ffffff' }}>
+              Ready to accelerate your learning?
+            </h2>
+            <p style={{ fontSize: '1.03rem', color: '#e0e7ff', maxWidth: '500px', margin: '0 0 1.5rem', lineHeight: 1.6 }}>
+              Start revising today with our comprehensive past exam archives and grade-wise textbooks.
+            </p>
+            <div style={{ display: 'flex', gap: '0.9rem', flexWrap: 'wrap' }}>
+              <Link href="/exams" className="btn-secondary" style={{ background: '#ffffff', color: '#312e81', border: 'none', fontWeight: 800 }}>
+                Explore Exams
+              </Link>
+              <Link href="/contact" className="btn-secondary" style={{ background: 'transparent', color: '#ffffff', border: '2px solid rgba(255,255,255,0.7)' }}>
+                Contact Admin
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -43,10 +43,11 @@ export default function Footer() {
             <h4 className="footer-title">Navigation</h4>
             <ul className="footer-links">
               <li><Link href="/">Home</Link></li>
+               <li><Link href="/about">About Us</Link></li>
               <li><Link href="/exams">Past Exams</Link></li>
               <li><Link href="/textbook">Textbook Repository</Link></li>
+               <li><Link href="/challange">Challange</Link></li>
               <li><Link href="/news">Latest News</Link></li>
-              <li><Link href="/about">About Us</Link></li>
               <li><Link href="/contact">Contact Us</Link></li>
               <li><Link href="/admin">Admin Portal</Link></li>
             </ul>
@@ -68,7 +69,7 @@ export default function Footer() {
               <span className="contact-icon">📞</span>
               <div>
                 <strong>Phone Numbers:</strong>
-                <div>0910443488</div>
+                <div>0947257165</div>
                 <div></div>
               </div>
             </div>
@@ -77,12 +78,12 @@ export default function Footer() {
               <span className="contact-icon">✉️</span>
               <div>
                 <strong>Email:</strong>
-                <div>info.kolfegeneralsecond<br></br>ary.school@addislearning.edu.et</div>
+               <div>kolfestudy1@gmail.com</div>
               </div>
             </div>
           </div>
 
-          {/* School Hours & Updates */}
+          {/* School Hours & Updates 0910443488 */}
           <div>
             <h4 className="footer-title">School Hours</h4>
             <div style={{ color: '#cbd5e1', fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>

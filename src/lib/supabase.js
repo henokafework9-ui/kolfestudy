@@ -192,6 +192,211 @@ export async function deleteNews(id) {
   return true;
 }
 
+// ---------------- CHALLENGE ATTEMPTS ----------------
+export async function saveChallengeAttempt(payload) {
+  const { data, error } = await supabase
+    .from('challenge_attempts')
+    .insert([payload])
+    .select();
+
+  if (error) {
+    console.error('Supabase save challenge attempt error:', error);
+    throw error;
+  }
+
+  return data?.[0] || null;
+}
+
+// ---------------- PROFESSIONAL STUDENT ACCOUNT + SUBSCRIPTIONS ----------------
+export async function createProfessionalStudentAccount({
+  fullName,
+  email,
+  phone,
+  passwordHash,
+  schoolName,
+  accountType = 'professional',
+}) {
+  const payload = {
+    full_name: fullName,
+    email,
+    phone: phone || '',
+    password_hash: passwordHash,
+    school_name: schoolName || '',
+    account_type: accountType,
+    is_active: false,
+  };
+
+  const { data, error } = await supabase
+    .from('student_accounts')
+    .insert([payload])
+    .select();
+
+  if (error) {
+    console.error('Supabase create professional student account error:', error);
+    throw error;
+  }
+
+  return data?.[0] || null;
+}
+
+export async function getAllProfessionalAccounts() {
+  const { data, error } = await supabase
+    .from('student_accounts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Supabase fetch all professional accounts error:', error);
+    throw error;
+  }
+
+  return data || [];
+}
+
+export async function getAllProfessionalSubscriptions() {
+  const { data, error } = await supabase
+    .from('student_subscriptions')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Supabase fetch all professional subscriptions error:', error);
+    throw error;
+  }
+
+  return data || [];
+}
+
+export async function getProfessionalStudentByEmail(email) {
+  const normalizedEmail = String(email || '').trim().toLowerCase();
+  if (!normalizedEmail) return null;
+
+  const { data, error } = await supabase
+    .from('student_accounts')
+    .select('*')
+    .eq('email', normalizedEmail)
+    .maybeSingle();
+
+  if (error && error.code !== 'PGRST116') {
+    console.error('Supabase fetch student by email error:', error);
+    throw error;
+  }
+
+  return data || null;
+}
+
+export async function getLatestProfessionalSubscription(studentEmail) {
+  const normalizedEmail = String(studentEmail || '').trim().toLowerCase();
+  if (!normalizedEmail) return null;
+
+  const { data, error } = await supabase
+    .from('student_subscriptions')
+    .select('*')
+    .eq('student_email', normalizedEmail)
+    .order('paid_at', { ascending: false })
+    .limit(1);
+
+  if (error) {
+    console.error('Supabase fetch latest subscription error:', error);
+    throw error;
+  }
+
+  return data?.[0] || null;
+}
+
+export async function createMonthlySubscription({
+  studentEmail,
+  accountId,
+  plan = 'Professional Monthly',
+  amount = 300,
+  currency = 'ETB',
+  transactionNumber,
+  paymentMethod = 'manual',
+  status = 'pending',
+}) {
+  const now = new Date();
+  const expiresAt = new Date(now);
+  expiresAt.setMonth(expiresAt.getMonth() + 1);
+
+  const payload = {
+    student_email: studentEmail,
+    account_id: accountId,
+    plan,
+    amount,
+    currency,
+    transaction_number: transactionNumber || '',
+    payment_method: paymentMethod,
+    status,
+    paid_at: now.toISOString(),
+    expires_at: expiresAt.toISOString(),
+  };
+
+  const { data, error } = await supabase
+    .from('student_subscriptions')
+    .insert([payload])
+    .select();
+
+  if (error) {
+    console.error('Supabase create monthly subscription error:', error);
+    throw error;
+  }
+
+  return data?.[0] || null;
+}
+
+export async function approveProfessionalStudent({ accountId, email }) {
+  const now = new Date();
+  const expiresAt = new Date(now);
+  expiresAt.setMonth(expiresAt.getMonth() + 1);
+
+  const { data: account, error: accountError } = await supabase
+    .from('student_accounts')
+    .update({ is_active: true })
+    .eq('id', accountId)
+    .select();
+
+  if (accountError) {
+    console.error('Supabase approve professional account error:', accountError);
+    throw accountError;
+  }
+
+  const { data: subscriptions, error: subscriptionError } = await supabase
+    .from('student_subscriptions')
+    .select('*')
+    .eq('student_email', String(email || '').trim().toLowerCase())
+    .order('paid_at', { ascending: false })
+    .limit(1);
+
+  if (subscriptionError) {
+    console.error('Supabase fetch subscription for approval error:', subscriptionError);
+    throw subscriptionError;
+  }
+
+  let subscription = null;
+  if (subscriptions && subscriptions[0]) {
+    const { data: updated, error: updateError } = await supabase
+      .from('student_subscriptions')
+      .update({
+        status: 'approved',
+        expires_at: expiresAt.toISOString(),
+      })
+      .eq('id', subscriptions[0].id)
+      .select();
+
+    if (updateError) {
+      console.error('Supabase approve professional subscription error:', updateError);
+      throw updateError;
+    }
+
+    subscription = updated?.[0] || subscriptions[0];
+  }
+
+  return {
+    account: account?.[0] || null,
+    subscription,
+  };
+}
+
 // ---------------- MESSAGES (student_messages table) ----------------
 export async function getMessages() {
   let { data, error } = await supabase
