@@ -135,9 +135,9 @@ export default function ProAccountPage() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
               <div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Monthly plan</div>
-                <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Professional Monthly</div>
+                <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Professional Monthly 0947257165  </div>
               </div>
-              <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--primary)' }}>{MONTHLY_FEE_ETB} ETB</div>
+              <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--primary)' }} pay>{MONTHLY_FEE_ETB} ETB</div>
             </div>
           </div>
 
