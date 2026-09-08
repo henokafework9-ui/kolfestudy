@@ -397,6 +397,21 @@ export async function approveProfessionalStudent({ accountId, email }) {
   };
 }
 
+export async function revokeProfessionalStudent(accountId) {
+  const { data, error } = await supabase
+    .from('student_accounts')
+    .update({ is_active: false })
+    .eq('id', accountId)
+    .select();
+
+  if (error) {
+    console.error('Supabase revoke professional account error:', error);
+    throw error;
+  }
+
+  return data?.[0] || null;
+}
+
 // ---------------- MESSAGES (student_messages table) ----------------
 export async function getMessages() {
   let { data, error } = await supabase
