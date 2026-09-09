@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const MONTHLY_FEE_ETB = 300;
+const MONTHLY_FEE_ETB = 50;
 
 export default function ProAccountPage() {
   const [form, setForm] = useState({
