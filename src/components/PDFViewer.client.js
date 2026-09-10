@@ -2,17 +2,46 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
-pdfjs.GlobalWorkerOptions.workerSrc = "https://unpkg.com/pdfjs-dist/build/pdf.worker.min.js";
+// Use the non-module worker build for broader browser compatibility
+// Prefer a same-origin worker served from the `public/` folder to avoid
+// cross-origin / CSP issues on deployment. Ask deploy to place
+// `pdf.worker.min.js` at the site root (e.g. `public/pdf.worker.min.js`).
+const localWorker = `${window.location.origin}/pdf.worker.min.js`;
+const cdnWorker = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = localWorker;
 
 export default function PDFViewerClient({ fileUrl }) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
+  const [error, setError] = useState(null);
+  const [triedCdn, setTriedCdn] = useState(false);
+  const [docKey, setDocKey] = useState(0);
   const containerRef = useRef(null);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
     setPageNumber(1);
+    setError(null);
+  }
+
+  function onDocumentLoadError(err) {
+    console.error("PDF load error:", err);
+
+    // If the worker at the same origin isn't working (common on some hosts
+    // with strict CSP or missing worker file), fall back to the CDN worker
+    // once and retry the document load.
+    if (!triedCdn) {
+      console.warn("PDF worker failed; retrying with CDN worker...");
+      pdfjs.GlobalWorkerOptions.workerSrc = cdnWorker;
+      setTriedCdn(true);
+      setError(null);
+      // bump key to force Document remount/reload
+      setDocKey((k) => k + 1);
+      return;
+    }
+
+    setError("Failed to load PDF on this device. Please open the PDF in a new tab to download it.");
   }
 
   useEffect(() => {
@@ -70,11 +99,21 @@ export default function PDFViewerClient({ fileUrl }) {
       </div>
 
       <div style={{ flex: 1, overflow: "auto", padding: 12 }}>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Document file={fileUrl} onLoadSuccess={onDocumentLoadSuccess} loading={<div>Loading PDF…</div>}>
-            <Page pageNumber={pageNumber} scale={scale} loading={<div />} />
-          </Document>
-        </div>
+        {error ? (
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 220, textAlign: "center", gap: 12, color: "#cbd5e1" }}>
+            <div style={{ fontSize: 18, fontWeight: 600 }}>Unable to preview this PDF</div>
+            <div style={{ maxWidth: 420 }}>{error}</div>
+            <a href={fileUrl} target="_blank" rel="noreferrer" style={{ color: "#60a5fa" }}>
+              Open / Download PDF
+            </a>
+          </div>
+        ) : (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Document key={docKey} file={{ url: fileUrl }} onLoadSuccess={onDocumentLoadSuccess} onLoadError={onDocumentLoadError} loading={<div>Loading PDF…</div>}>
+              <Page pageNumber={pageNumber} scale={scale} loading={<div />} />
+            </Document>
+          </div>
+        )}
       </div>
     </div>
   );
