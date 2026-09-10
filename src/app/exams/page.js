@@ -681,8 +681,10 @@ export default function ExamsPage() {
               </div>
             </div>
 
+            
             {/* Modal Body / PDF Viewer */}
-            <div style={{ flex: 1, background: '#0b1220', display: 'flex' }}>
+
+ <div style={{ flex: 1, background: '#0b1220', display: 'flex' }}>
               <iframe
                 src={`${previewFile.fileUrl}#toolbar=0`}
                 title={previewFile.title}

@@ -21,6 +21,7 @@ import {
   Clock,
   BookMarked,
 } from 'lucide-react';
+import PDFViewer from '../../components/PDFViewer';
 
 // Fixed static dataset for books - ALWAYS offline ready, NO DB dependency
 const booksData = [
@@ -1934,16 +1935,9 @@ export default function BooksPage() {
                 flexDirection: "column",
               }}
             >
-              <iframe
-                src={`${activeModalBook.pdf}#toolbar=1&navpanes=0`}
-                title={activeModalBook.title}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  minHeight: "800px",
-                  border: "none",
-                }}
-              />
+              <div style={{ flex: 1, minHeight: 0 }}>
+                <PDFViewer fileUrl={activeModalBook.pdf} />
+              </div>
             </div>
 
             {/* MODAL FOOTER */}

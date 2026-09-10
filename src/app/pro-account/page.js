@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const MONTHLY_FEE_ETB = 50;
+const MONTHLY_FEE_ETB = 300;
 
 export default function ProAccountPage() {
   const [form, setForm] = useState({
@@ -135,7 +135,7 @@ export default function ProAccountPage() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
               <div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Monthly plan</div>
-                <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Professional Monthly Telebirr 0947257165  </div>
+                <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Professional Monthly</div>
               </div>
               <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--primary)' }} pay>{MONTHLY_FEE_ETB} ETB</div>
             </div>

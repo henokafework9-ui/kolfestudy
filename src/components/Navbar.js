@@ -13,6 +13,7 @@ import {
   Info, 
   PhoneCall, 
   ShieldCheck,
+  Sparkles,
   Trophy,
   ChevronRight
 } from 'lucide-react';
@@ -56,6 +57,7 @@ export default function Navbar() {
     { label: 'Home', href: '/', icon: Home },
     { label: 'Exams', href: '/exams', icon: FileText },
     { label: 'Textbook', href: '/textbook', icon: BookOpen },
+    { label: ' Ask AI ?', href: '/ai', icon: Sparkles },
     { label: 'Challenge', href: '/challange', icon: Trophy },
     { label: 'News', href: '/news', icon: Newspaper },
     { label: 'About', href: '/about', icon: Info },
