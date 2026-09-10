@@ -122,7 +122,7 @@ export default function AIPage() {
                   <div style={{ marginBottom: '0.8rem' }}>
                     {tool.logoType === 'chatgpt' ? (
                       <img
-                        src="/chatgpt-logo.svg"
+                        src="/chatGPTlogo.png"
                         alt="ChatGPT logo"
                         style={{ width: 42, height: 42, display: 'block', borderRadius: 12 }}
                       />

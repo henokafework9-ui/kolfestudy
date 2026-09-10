@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   Share2
 } from 'lucide-react';
+import PDFViewer from '../../components/PDFViewer';
 
 // Pre-populated default dataset (Ensures immediate offline preview & fallback if DB is empty)
 const defaultExams = [
@@ -683,13 +684,10 @@ export default function ExamsPage() {
 
             
             {/* Modal Body / PDF Viewer */}
-
- <div style={{ flex: 1, background: '#0b1220', display: 'flex' }}>
-              <iframe
-                src={`${previewFile.fileUrl}#toolbar=0`}
-                title={previewFile.title}
-                style={{ width: '100%', height: '100%', border: 'none', minHeight: '60vh' }}
-              />
+            <div style={{ flex: 1, background: '#0b1220', display: 'flex', minHeight: 0 }}>
+              <div style={{ flex: 1, minHeight: 0 }}>
+                <PDFViewer fileUrl={previewFile.fileUrl} />
+              </div>
             </div>
           </div>
         </div>
