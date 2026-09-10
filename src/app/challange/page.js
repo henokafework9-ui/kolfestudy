@@ -370,7 +370,7 @@ export default function ChallengePage() {
           </div>
 
           <p style={{ margin: '0.9rem 0 0', color: '#166534', fontWeight: 700 }}>
-            Pay 10 ETB for one competition and enter the transaction number below.
+            Pay 10 ETB and win 100 ETB. Enter the TeleBirr transaction number below.
           </p>
         </div>
 
