@@ -131,13 +131,13 @@ export default function ProAccountPage() {
             <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Create a password" style={inputStyle} />
           </div>
 
-          <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div style={{ background: 'linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%)', border: '1px solid #bbf7d0', borderRadius: '18px', padding: '1.1rem 1.2rem', boxShadow: '0 12px 24px rgba(22, 163, 74, 0.08)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Monthly plan</div>
-                <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Professional Monthly</div>
+                <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Professional Monthly  Telebirr 0947257165</div>
               </div>
-              <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--primary)' }} pay>{MONTHLY_FEE_ETB} ETB</div>
+              <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--primary)' }}>{MONTHLY_FEE_ETB} ETB</div>
             </div>
           </div>
 

@@ -21,7 +21,9 @@ const topStudents = [
   { rank: 3, medal: '🥉', name: 'Netsanet Alemu', className: 'Grade 12A', score: 94, bg: 'linear-gradient(135deg, #fed7aa 0%, #fb923c 24%, #c2410c 58%, #7c2d12 100%)', text: '#fffaf5', ring: '#fdba74', glow: 'rgba(194, 65, 12, 0.32)' },
 ];
 
-const totalTimeInSeconds = 10 * 60;
+const totalTimeInSeconds = 10.8 * 60;
+const CHALLENGE_FEE_ETB = 10;
+const TELEBIRR_NUMBER = '0947257165';
 
 function createEmptyAnswers() {
   return Object.fromEntries(challengeQuestions.map((_, index) => [String(index), '']));
@@ -30,6 +32,7 @@ function createEmptyAnswers() {
 export default function ChallengePage() {
   const [studentName, setStudentName] = useState('');
   const [studentClass, setStudentClass] = useState('');
+  const [transactionNumber, setTransactionNumber] = useState('');
   const [answers, setAnswers] = useState(createEmptyAnswers);
   const [timeLeft, setTimeLeft] = useState(totalTimeInSeconds);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -76,11 +79,19 @@ export default function ChallengePage() {
   const submitAnswers = async (autoSubmitted = false) => {
     if (isSubmitted || isSubmitting) return;
 
+    if (!transactionNumber.trim()) {
+      setStatusMessage('Please enter your TeleBirr transaction number before submitting.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     const payload = {
       student_name: studentName.trim() || 'Anonymous Student',
       student_class: studentClass.trim() || 'Not provided',
+      transaction_number: transactionNumber.trim(),
+      telebirr_number: TELEBIRR_NUMBER,
+      payment_amount_etb: CHALLENGE_FEE_ETB,
       score,
       total_questions: challengeQuestions.length,
       answers,
@@ -344,6 +355,43 @@ export default function ChallengePage() {
             />
           </label>
         </div>
+
+        <div style={{ marginBottom: '1.5rem', padding: '1rem 1.2rem', borderRadius: '18px', background: 'linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%)', border: '1px solid #bbf7d0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <div>
+              <p style={{ margin: 0, color: '#166534', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.72rem' }}>TeleBirr payment</p>
+              <h3 style={{ margin: '0.4rem 0 0', color: '#14532d', fontSize: '1.5rem' }}>{TELEBIRR_NUMBER}</h3>
+            </div>
+
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ color: '#166534', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Competition fee</div>
+              <div style={{ color: '#14532d', fontSize: '2rem', fontWeight: 900 }}>{CHALLENGE_FEE_ETB} ETB</div>
+            </div>
+          </div>
+
+          <p style={{ margin: '0.9rem 0 0', color: '#166534', fontWeight: 700 }}>
+            Pay 10 ETB for one competition and enter the transaction number below.
+          </p>
+        </div>
+
+        <label style={{ display: 'grid', gap: '0.45rem', color: '#1f2937', fontWeight: 700, marginBottom: '1.5rem' }}>
+          Transaction Number
+          <input
+            type="text"
+            value={transactionNumber}
+            onChange={(event) => setTransactionNumber(event.target.value)}
+            placeholder="Enter TeleBirr transaction number"
+            style={{
+              padding: '0.95rem 1rem',
+              border: '1px solid #dbe3f0',
+              borderRadius: '14px',
+              fontSize: '1rem',
+              background: '#f8fafc',
+              boxShadow: '0 2px 10px rgba(79, 70, 229, 0.05)',
+              outline: 'none',
+            }}
+          />
+        </label>
 
         <div style={{ display: 'grid', gap: '1rem' }}>
           {challengeQuestions.map((item, index) => (
