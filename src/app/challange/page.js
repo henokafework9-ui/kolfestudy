@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 const challengeQuestions = [
   { question: 'What is 12 × 8?', options: ['84', '96', '104', '108'], correctAnswer: '96' },
@@ -21,7 +21,7 @@ const topStudents = [
   { rank: 3, medal: '🥉', name: 'Netsanet Alemu', className: 'Grade 12A', score: 94, bg: 'linear-gradient(135deg, #fed7aa 0%, #fb923c 24%, #c2410c 58%, #7c2d12 100%)', text: '#fffaf5', ring: '#fdba74', glow: 'rgba(194, 65, 12, 0.32)' },
 ];
 
-const totalTimeInSeconds = 10.8 * 60;
+const totalTimeInSeconds = 1 * 60;
 const CHALLENGE_FEE_ETB = 10;
 const TELEBIRR_NUMBER = '0947257165';
 
@@ -38,6 +38,9 @@ export default function ChallengePage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
+  const latestSubmissionRef = useRef(null);
+  const isSubmittedRef = useRef(false);
+  const isSubmittingRef = useRef(false);
 
   const score = useMemo(() => {
     let total = 0;
@@ -48,6 +51,17 @@ export default function ChallengePage() {
     });
     return total;
   }, [answers]);
+
+  // The timer is created only once. Keep its automatic submission in sync with
+  // the latest form values instead of the values from the first render.
+  latestSubmissionRef.current = {
+    studentName,
+    studentClass,
+    transactionNumber,
+    answers,
+    score,
+    timeLeft,
+  };
 
   useEffect(() => {
     if (isSubmitted) return;
@@ -77,25 +91,28 @@ export default function ChallengePage() {
   };
 
   const submitAnswers = async (autoSubmitted = false) => {
-    if (isSubmitted || isSubmitting) return;
+    if (isSubmittedRef.current || isSubmittingRef.current) return;
 
-    if (!transactionNumber.trim()) {
+    const latestValues = latestSubmissionRef.current;
+
+    if (!latestValues.transactionNumber.trim()) {
       setStatusMessage('Please enter your TeleBirr transaction number before submitting.');
       return;
     }
 
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
 
     const payload = {
-      student_name: studentName.trim() || 'Anonymous Student',
-      student_class: studentClass.trim() || 'Not provided',
-      transaction_number: transactionNumber.trim(),
+      student_name: latestValues.studentName.trim() || 'Anonymous Student',
+      student_class: latestValues.studentClass.trim() || 'Not provided',
+      transaction_number: latestValues.transactionNumber.trim() ||'no pay',
       telebirr_number: TELEBIRR_NUMBER,
       payment_amount_etb: CHALLENGE_FEE_ETB,
-      score,
+      score: latestValues.score,
       total_questions: challengeQuestions.length,
-      answers,
-      time_used_seconds: totalTimeInSeconds - timeLeft,
+      answers: latestValues.answers,
+      time_used_seconds: totalTimeInSeconds - latestValues.timeLeft,
       status: autoSubmitted ? 'expired' : 'submitted',
       submitted_at: new Date().toISOString(),
     };
@@ -113,6 +130,7 @@ export default function ChallengePage() {
         throw new Error(result.error || 'Unable to save your answers.');
       }
 
+      isSubmittedRef.current = true;
       setIsSubmitted(true);
       setStatusMessage(
         autoSubmitted
@@ -123,6 +141,7 @@ export default function ChallengePage() {
       setStatusMessage(error.message || 'Something went wrong while saving your answers.');
       console.error('Challenge submit error:', error);
     } finally {
+      isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
   };

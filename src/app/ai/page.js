@@ -13,20 +13,7 @@ const aiTools = [
     accent: 'from-violet-500 to-fuchsia-600',
     logoType: 'gemini',
   },
-  {
-    name: 'Hugging Face',
-    url: 'https://huggingface.co/',
-    description: 'Explore AI demos and model playgrounds for learning, coding, and experiments.',
-    accent: 'from-amber-400 to-orange-500',
-    logoType: 'huggingface',
-  },
-  {
-    name: 'Gradio Demos',
-    url: 'https://gradio.app/',
-    description: 'Try interactive AI demos and easy-to-use open-source tools for students.',
-    accent: 'from-emerald-500 to-teal-600',
-    logoType: 'gradio',
-  },
+
 ];
 
 function ToolLogo({ type }) {
@@ -98,7 +85,7 @@ export default function AIPage() {
               <a
                 key={tool.name}
                 href={tool.url}
-                target='_self'
+                target='_blank'
                 rel='noreferrer'
                 style={{
                   textDecoration: 'none',
