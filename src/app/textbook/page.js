@@ -351,7 +351,7 @@ const booksData = [
     pages: 380,
     fileSize: "143.1 MB",
     cover: "/book cover/gread11-MATHS.jpeg",
-    pdf: "https://kehulum.com/bfile_asset/books_98/collection/grade-11-mathematics-new-curriculum--student-textbook-kehulumcom1759919088fbdb.pdff",
+    pdf: "https://kehulum.com/bfile_asset/books_98/collection/grade-11-mathematics-new-curriculum--student-textbook-kehulumcom1759919088fbdb.pdf",
     bgGradient: "from-blue-600 via-indigo-600 to-purple-700",
     description: "New curriculum Grade 11 Mathematics student textbook covering Functions, Vectors, Matrices, and Trigonometry.",
   },
