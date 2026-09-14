@@ -345,7 +345,7 @@ const booksData = [
   {
     id: 25,
     grade: 11,
-    title: "Grade 11 Mathematics Student Textbook",
+    title: "Grade 11 Mathematics Student Textbook / Can not read  online /",
     subject: "Mathematics",
     author: "Ministry of Education Ethiopia",
     pages: 380,
@@ -398,7 +398,7 @@ const booksData = [
   {
     id: 29,
     grade: 11,
-    title: "Grade 11 English Student Textbook",
+    title: "Grade 11 English Student Textbook  / Can not read  online /",
     subject: "English",
     author: "Ministry of Education Ethiopia",
     pages: 260,
@@ -478,7 +478,7 @@ const booksData = [
   {
     id: 36,
     grade: 12,
-    title: "Grade 12 Mathematics Student Textbook",
+    title: "Grade 12 Mathematics Student Textbook / Can not read  online /",
     subject: "Mathematics",
     author: "Ministry of Education Ethiopia",
     pages: 390,
@@ -517,7 +517,7 @@ const booksData = [
   {
     id: 39,
     grade: 12,
-    title: "Grade 12 Biology Student Textbook",
+    title: "Grade 12 Biology Student Textbook / Can not read  online /",
     subject: "Biology",
     author: "Ministry of Education Ethiopia",
     pages: 340,
