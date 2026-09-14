@@ -21,7 +21,7 @@ const topStudents = [
   { rank: 3, medal: '🥉', name: 'Netsanet Alemu', className: 'Grade 12A', score: 94, bg: 'linear-gradient(135deg, #fed7aa 0%, #fb923c 24%, #c2410c 58%, #7c2d12 100%)', text: '#fffaf5', ring: '#fdba74', glow: 'rgba(194, 65, 12, 0.32)' },
 ];
 
-const totalTimeInSeconds = 1 * 60;
+const totalTimeInSeconds = 10.8 * 60;
 const CHALLENGE_FEE_ETB = 10;
 const TELEBIRR_NUMBER = '0947257165';
 
