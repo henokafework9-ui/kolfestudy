@@ -20,44 +20,75 @@ import {
 import PDFViewer from '../../components/PDFViewer';
 
 // Pre-populated default dataset (Ensures immediate offline preview & fallback if DB is empty)
+const nationalQuestionPapers = [
+  ...['Biology', 'Chemistry', 'English', 'Mathematics'].flatMap((subject) =>
+    [2005, 2006, 2007, 2008, 2009, 2010].map((year) => ({
+      id: `national-${subject.toLowerCase()}-${year}`,
+      title: `Ethiopian National Examination - ${subject} (${year})`,
+      subject,
+      date: String(year),
+      category: 'national',
+      fileUrl: `/Exams/${subject.toLowerCase()}-${year}-questions.pdf`,
+      description: `Ethiopian National Examination ${subject.toLowerCase()} past-question paper for ${year}.`
+    }))
+  ),
+  ...[2005, 2006, 2007, 2008, 2009, 2010].map((year) => ({
+    id: `national-physics-${year}`,
+    title: `Ethiopian National Examination - Physics (${year})`,
+    subject: 'Physics',
+    date: String(year),
+    category: 'national',
+    fileUrl: `/Exams/physics-${year}-questions.pdf`,
+    description: `Ethiopian National Examination physics past-question paper for ${year}.`
+  })),
+  {
+    id: 'national-physics-2008-answers',
+    title: 'Ethiopian National Examination - Physics Answers (2008)',
+    subject: 'Physics',
+    date: '2008',
+    category: 'national',
+    fileUrl: '/Exams/physics-2008-answers.pdf',
+    description: 'Answer key for the 2008 Ethiopian National Examination physics paper.'
+  },
+  {
+    id: 'national-social-2016',
+    title: 'Ethiopian National Entrance Examination - All Social Subjects (2016 E.C. / 2024)',
+    subject: 'Social Sciences',
+    date: '2016 E.C. (2024)',
+    category: 'national',
+    fileUrl: '/Exams/Entrance 2016(2024) All Social Subjects.pdf',
+    description: 'Ethiopian National Entrance Examination paper covering all social science subjects.'
+  }
+];
+
+const epsSchoolExamPapers = [
+  ['Biology', 9, '2nd Semester Final Examination', 'June 2020', '2nd Sem. Biology Final Exam, G. 9 (June, 2020).pdf'],
+  ['Biology', 10, '2nd Semester Final Examination', 'June 2020', '2nd Sem., Biology Final Exam, G. 10 (June, 2020).pdf'],
+  ['Biology', 11, '2nd Semester Final Examination', 'June 2020', '2nd Sem. Biology Final Exam, G.11 (June, 2020).pdf'],
+  ['Civics', 9, '2nd Semester Final Examination', 'June 2020', 'HAWASSA-EPS-Civics G9 2nd Sem fff June 2020.pdf'],
+  ['Civics', 10, '2nd Semester Final Examination', 'June 2020', 'HAWASSA-EPS-Civics G10 2nd Sem fff June 2020.pdf'],
+  ['English', 9, 'Final Examination', '2020', 'Grade 9 English.pdf'],
+  ['English', 10, 'Final Examination', '2020', 'Grade 10 English.pdf'],
+  ['English', 11, 'Final Examination', '2020', 'HAWASSA-EPS-Grade 11 English.pdf'],
+  ['English', 12, 'Final Examination', '2020', 'HAWASSA-EPS-Grade 12 ENGLISH-01.pdf'],
+  ['History', 9, 'Final Examination', '2020', 'HAWASSA-EPS-Gr 9 - History.pdf'],
+  ['History', 10, 'Final Examination', '2020', 'HAWASSA-EPS-Gr 10 - History.pdf'],
+  ['Mathematics', 9, '2nd Semester Final Examination', '2020', 'HAWASSA-EPS-Grade 9 Math 2nd sem final exam 2020.pdf'],
+  ['Mathematics', 10, '2nd Semester Final Examination', '2020', 'HAWASSA-EPS-Grade 10 Math 2nd sem final exam 2020.pdf'],
+  ['Physics', 11, '2nd Semester Final Examination', '2019–2020', 'HAWASSA-EPS-Second semesterG 11 Physics 2019 - 20.pdf']
+].map(([subject, grade, assessment, date, filename]) => ({
+  id: `eps-${subject.toLowerCase()}-${grade}`,
+  title: `EPS Grade ${grade} ${subject} ${assessment}`,
+  subject,
+  date,
+  category: 'school',
+  fileUrl: `/schoolexams/${filename}`,
+  description: `Ethio Parents School (EPS) Grade ${grade} ${subject.toLowerCase()} examination paper.`
+}));
+
 const defaultExams = [
   // SCHOOL EXAMS
-  {
-    id: 's1',
-    title: 'Grade 12 Physics Midterm Examination',
-    subject: 'Physics',
-    date: '2018 E.C. (2026)',
-    category: 'school',
-    fileUrl: '/exam/2018 Physics 1st Round Online Exam.pdf',
-    description: 'Internal school midterm paper covering Electromagnetism, Quantum Concepts, and Wave Motion.'
-  },
-  {
-    id: 's2',
-    title: 'Grade 12 Mathematics Semester Final Exam',
-    subject: 'Mathematics',
-    date: '2018 E.C. (2026)',
-    category: 'school',
-    fileUrl: '/exam/2018 Aptitude  First Round ESSLCE Online Exam.pdf',
-    description: 'Calculus, Vectors, and Complex Numbers school semester examination paper with solution guidelines.'
-  },
-  {
-    id: 's3',
-    title: 'Grade 11 Chemistry Model Exam',
-    subject: 'Chemistry',
-    date: 'April 2025',
-    category: 'school',
-    fileUrl: '/books/grade-11-chemistry-new-curriculum--student-textbook-kehulumcom17599238964126.pdf',
-    description: 'School preparatory model exam on Chemical Equilibrium and Chemical Kinetics.'
-  },
-  {
-    id: 's4',
-    title: 'Grade 10 Biology Midterm Exam',
-    subject: 'Biology',
-    date: 'March 2025',
-    category: 'school',
-    fileUrl: '/books/biology_10.pdf',
-    description: 'School mid-term test on Genetics, Heredity, and Human Body Systems.'
-  },
+  
 
   // NATIONAL EXAMS (EUEE / ESSLCE)
   {
@@ -66,7 +97,7 @@ const defaultExams = [
     subject: 'Aptitude',
     date: '2018 E.C. (2026)',
     category: 'national',
-    fileUrl: '/Exams/SAT2018.pdf',
+    fileUrl: '/Exams/SAT2018 .pdf',
     description: 'Official Ministry of Education National Entrance Exam paper for Scholastic Aptitude Test.'
   },
   {
@@ -111,7 +142,7 @@ const defaultExams = [
     subject: 'English',
     date: '2018 E.C. (2026)',
     category: 'national',
-    fileUrl: '/exam/2018 Aptitude  First Round ESSLCE Online Exam.pdf',
+    fileUrl: '/Exams/SAT2018 .pdf',
     description: 'Official Ministry of Education Grade 12 National Examination in English Language.'
   },
   {
@@ -120,7 +151,7 @@ const defaultExams = [
     subject: 'History',
     date: '2018 E.C. (2026)',
     category: 'national',
-    fileUrl: '/exam/2018 Aptitude  First Round ESSLCE Online Exam.pdf',
+    fileUrl: '/Exams/Entrance 2016(2024) All Social Subjects.pdf',
     description: 'Grade 12 Social Science Stream National University Entrance Examination in History.'
   },
   {
@@ -129,7 +160,7 @@ const defaultExams = [
     subject: 'Geography',
     date: '2018 E.C. (2026)',
     category: 'national',
-    fileUrl: '/exam/2018 Aptitude  First Round ESSLCE Online Exam.pdf',
+    fileUrl: '/Exams/Entrance 2016(2024) All Social Subjects.pdf',
     description: 'Grade 12 Social Science Stream National Entrance Examination in Geography.'
   },
   {
@@ -138,12 +169,14 @@ const defaultExams = [
     subject: 'Economics',
     date: '2018 E.C. (2026)',
     category: 'national',
-    fileUrl: '/exam/2018 Aptitude  First Round ESSLCE Online Exam.pdf',
+    fileUrl: '/Exams/Entrance 2016(2024) All Social Subjects.pdf',
     description: 'Grade 12 Social Science Stream National Entrance Examination in Economics.'
-  }
+  },
+  ...nationalQuestionPapers,
+  ...epsSchoolExamPapers
 ];
 
-const subjectsList = ['All', 'Mathematics', 'Chemistry', 'Physics', 'Biology', 'English', 'History', 'Economics', 'Geography', 'Aptitude'];
+const subjectsList = ['All', 'Mathematics', 'Chemistry', 'Physics', 'Biology', 'English', 'History', 'Economics', 'Geography', 'Aptitude', 'Civics', 'Social Sciences'];
 // Exams are freely accessible; per-exam payment removed.
 
 export default function ExamsPage() {
@@ -159,7 +192,10 @@ export default function ExamsPage() {
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
-          setExams(data);
+          setExams([
+            ...data,
+            ...defaultExams.filter((defaultExam) => !data.some((exam) => exam.fileUrl === defaultExam.fileUrl))
+          ]);
         } else {
           setExams(defaultExams);
         }
