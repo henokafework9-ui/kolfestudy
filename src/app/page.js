@@ -85,7 +85,7 @@ export default function Home() {
           </h1>
 
           <p style={{ fontSize: '1.2rem', color: '#cbd5e1', maxWidth: '720px', margin: '0 auto 2.5rem', lineHeight: 1.6 }}>
-            Access past exam papers , explore digital textbooks, connect with dedicated teachers, and stay up to date with school news.
+            Access past school exam papers , explore digital textbooks and National exam papers,  and stay up to date with school news.
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -110,11 +110,11 @@ export default function Home() {
             <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', fontWeight: 500 }}>Active Students</div>
           </div>
           <div className="glass glass-card" style={{ textAlign: 'center', padding: '1.5rem' }}>
-            <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--secondary)' }}>150+</div>
+            <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--secondary)' }}>80+</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', fontWeight: 500 }}>Qualified Teachers</div>
           </div>
           <div className="glass glass-card" style={{ textAlign: 'center', padding: '1.5rem' }}>
-            <div style={{ fontSize: '2.2rem', fontWeight: 800, color: '#ec4899' }}>500+</div>
+            <div style={{ fontSize: '2.2rem', fontWeight: 800, color: '#ec4899' }}>60+</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', fontWeight: 500 }}>Past Exam Papers</div>
           </div>
           <div className="glass glass-card" style={{ textAlign: 'center', padding: '1.5rem' }}>
