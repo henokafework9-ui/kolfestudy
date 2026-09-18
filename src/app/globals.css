@@ -215,6 +215,116 @@ main {
   margin-bottom: 0.5rem;
 }
 
+/* Pro account page */
+.pro-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(240px, 0.7fr);
+  gap: 2rem;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(1.75rem, 5vw, 3.5rem);
+  border-radius: 26px;
+  color: #fff;
+  background: radial-gradient(circle at 82% 15%, rgba(192, 132, 252, 0.55), transparent 30%), linear-gradient(120deg, #312e81 0%, #4f46e5 48%, #7c3aed 100%);
+  box-shadow: 0 24px 48px rgba(79, 70, 229, 0.24);
+}
+
+.pro-hero::after {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: 20%;
+  bottom: -190px;
+  border-radius: 50%;
+  border: 45px solid rgba(255, 255, 255, 0.08);
+}
+
+.pro-hero > * { position: relative; z-index: 1; }
+
+.pro-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.pro-hero h1 { max-width: 650px; margin: 0.8rem 0; font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.12; letter-spacing: -0.04em; }
+.pro-hero p { max-width: 610px; color: #e0e7ff; font-size: 1.04rem; line-height: 1.7; }
+.pro-hero-points { display: flex; flex-wrap: wrap; gap: 0.7rem 1.25rem; margin-top: 1.25rem; font-weight: 700; font-size: 0.9rem; }
+.pro-hero-points span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.pro-hero-points svg { color: #a7f3d0; }
+
+.pro-price-card {
+  padding: 1.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.24);
+  backdrop-filter: blur(10px);
+}
+.pro-price-card > span { color: #ddd6fe; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.pro-price-card strong { display: block; margin: 0.2rem 0; font-size: 3rem; line-height: 1.1; }
+.pro-price-card strong small { font-size: 1rem; }
+.pro-price-card p { margin-bottom: 1rem; font-size: 0.85rem; }
+.pro-price-action { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.65rem 0.85rem; border-radius: 10px; background: #fff; color: #4338ca; font-size: 0.9rem; font-weight: 800; }
+.pro-price-action:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(15, 23, 42, 0.22); }
+
+.pro-benefit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.pro-benefit { display: flex; gap: 0.85rem; min-height: 130px; padding: 1.15rem; border: 1px solid rgba(99, 102, 241, 0.12); border-radius: 16px; background: rgba(255, 255, 255, 0.62); box-shadow: 0 8px 20px rgba(71, 85, 105, 0.05); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.pro-benefit:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(79, 70, 229, 0.12); }
+.pro-benefit-icon { flex: 0 0 43px; height: 43px; display: grid; place-items: center; border-radius: 12px; }
+.pro-benefit h3 { margin: 0 0 0.25rem; font-size: 1rem; color: var(--dark); }
+.pro-benefit p { color: var(--text-muted); font-size: 0.86rem; line-height: 1.52; }
+
+.pro-payment-card {
+  overflow: hidden;
+  border: 1px solid #bbf7d0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 52%, #eff6ff 100%);
+  box-shadow: 0 12px 24px rgba(22, 163, 74, 0.09);
+}
+.pro-payment-heading { display: flex; align-items: center; gap: 0.8rem; padding: 1.05rem 1.15rem; }
+.pro-payment-icon { width: 44px; height: 44px; display: grid; flex: 0 0 44px; place-items: center; border-radius: 13px; color: #047857; background: #d1fae5; }
+.pro-payment-label { color: #047857; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; }
+.pro-payment-title { color: #163b2d; font-size: 1.14rem; font-weight: 800; }
+.pro-payment-price { margin-left: auto; text-align: right; color: #4338ca; line-height: 1; }
+.pro-payment-price strong { display: block; font-size: 1.8rem; letter-spacing: -0.05em; }
+.pro-payment-price span { color: #64748b; font-size: 0.68rem; font-weight: 700; }
+.pro-telebirr-details { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.85rem 1.15rem; background: rgba(255, 255, 255, 0.72); border-top: 1px solid #d1fae5; border-bottom: 1px solid #d1fae5; }
+.pro-telebirr-details > div { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.pro-telebirr-badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 6px; background: #0f766e; color: white; font-size: 0.72rem; font-weight: 900; letter-spacing: -0.03em; }
+.pro-telebirr-instruction { color: #475569; font-size: 0.83rem; font-weight: 600; }
+.pro-telebirr-actions { display: flex; align-items: center; gap: 0.55rem; }
+.pro-telebirr-number { white-space: nowrap; color: #0f766e; font-size: 1.2rem; font-weight: 900; letter-spacing: 0.04em; }
+.pro-telebirr-number:hover { color: #4338ca; }
+.pro-copy-button { display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; min-height: 36px; padding: 0.45rem 0.7rem; border: 1px solid #99f6e4; border-radius: 9px; background: #fff; color: #0f766e; cursor: pointer; font: inherit; font-size: 0.8rem; font-weight: 800; transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease; }
+.pro-copy-button:hover { transform: translateY(-1px); background: #0f766e; color: #fff; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.18); }
+.pro-copy-button:focus-visible { outline: 3px solid rgba(20, 184, 166, 0.35); outline-offset: 2px; }
+.pro-copy-button.is-copied { border-color: #86efac; background: #dcfce7; color: #166534; }
+.pro-payment-note { display: flex; align-items: flex-start; gap: 0.4rem; padding: 0.75rem 1.15rem; color: #166534; font-size: 0.78rem; font-weight: 600; line-height: 1.45; }
+.pro-payment-note svg { flex: 0 0 auto; margin-top: 0.13rem; }
+
+@media (max-width: 800px) {
+  .pro-hero { grid-template-columns: 1fr; }
+  .pro-price-card { max-width: 360px; }
+  .pro-benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .pro-hero { padding: 1.5rem; border-radius: 20px; }
+  .pro-benefit-grid { grid-template-columns: 1fr; }
+  .pro-payment-heading { align-items: flex-start; }
+  .pro-payment-price { padding-top: 0.18rem; }
+  .pro-telebirr-details { align-items: flex-start; flex-direction: column; }
+}
+
 /* Footer Styling */
 .footer-main {
   background: rgba(15, 23, 42, 0.95);
