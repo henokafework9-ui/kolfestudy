@@ -76,8 +76,8 @@ export default function Home() {
       >
         <div className="container" style={{ maxWidth: '900px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', padding: '0.4rem 1.2rem', borderRadius: '999px', marginBottom: '1.5rem', border: '1px solid rgba(255,255,255,0.2)' }}>
-            <img src="/logo.jpeg" alt="Logo Badge" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
-            <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#e0e7ff' }}>Official Kolfe Secondary School Learning Portal</span>
+            <img src="/icon.png" alt="Logo Badge" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
+            <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#e0e7ff' }}>Official Kolfe Study Learning Portal</span>
           </div>
 
           <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: '1.5rem', color: '#ffffff' }}>

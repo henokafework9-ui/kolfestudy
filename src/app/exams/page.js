@@ -61,10 +61,29 @@ const nationalQuestionPapers = [
   }
 ];
 
+const nationalEntrancePapers2017 = [
+  ['Aptitude', 'Second Round Questions', '2017 Aptitude Second round Entrance Examination Questions.pdf'],
+  ['Aptitude', 'Answer Key', '2017 Aptitude entrance exam Answers(1).pdf'],
+  ['Biology', 'Answer Key', '2017 Biology Entrance Exam Answer.pdf'],
+  ['Chemistry', 'Answer Key', '2017 Chemistry Entrance Exam Answer(1).pdf'],
+  ['Economics', 'Questions', '2017 Economics Entrance Examination Questions.pdf'],
+  ['English', 'Second Round Questions with Answers and Explanation', '2017_English_Entrance_Examination_with_Answer_and_Explanation2.pdf'],
+  ['English', 'Second Round Questions', '2017 English second round Entrance Examination Questions(1).pdf'],
+  ['Geography', 'Second Round Questions', '2017_Geography_second_round_Entrance_Examination_Questions1.pdf'],
+  ['History', 'Questions', '2017 History Entrance Examination Questions.pdf'],
+  ['Mathematics', 'Questions', '2017 Mathematics Entrance Examination Questions(4).pdf'],
+  ['Physics', 'Answer Key', '2017 Physics Entrance Exam Answer.pdf']
+].map(([subject, paperType, filename]) => ({
+  id: `national-2017-${subject.toLowerCase()}-${paperType.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+  title: `Ethiopian National Entrance Exam (EUEE) - ${subject} ${paperType} (2017 E.C.)`,
+  subject,
+  date: '2017 E.C. (2025)',
+  category: 'national',
+  fileUrl: `/Exams/${filename}`,
+  description: `Ethiopian National University Entrance Examination ${subject.toLowerCase()} ${paperType.toLowerCase()} from 2017 E.C.`
+}));
+
 const epsSchoolExamPapers = [
-  ['Biology', 9, '2nd Semester Final Examination', 'June 2020', '2nd Sem. Biology Final Exam, G. 9 (June, 2020).pdf'],
-  ['Biology', 10, '2nd Semester Final Examination', 'June 2020', '2nd Sem., Biology Final Exam, G. 10 (June, 2020).pdf'],
-  ['Biology', 11, '2nd Semester Final Examination', 'June 2020', '2nd Sem. Biology Final Exam, G.11 (June, 2020).pdf'],
   ['Civics', 9, '2nd Semester Final Examination', 'June 2020', 'HAWASSA-EPS-Civics G9 2nd Sem fff June 2020.pdf'],
   ['Civics', 10, '2nd Semester Final Examination', 'June 2020', 'HAWASSA-EPS-Civics G10 2nd Sem fff June 2020.pdf'],
   ['English', 9, 'Final Examination', '2020', 'Grade 9 English.pdf'],
@@ -172,6 +191,7 @@ const defaultExams = [
     fileUrl: '/Exams/Entrance 2016(2024) All Social Subjects.pdf',
     description: 'Grade 12 Social Science Stream National Entrance Examination in Economics.'
   },
+  ...nationalEntrancePapers2017,
   ...nationalQuestionPapers,
   ...epsSchoolExamPapers
 ];

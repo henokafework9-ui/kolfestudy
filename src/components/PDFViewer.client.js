@@ -69,29 +69,13 @@ export default function PDFViewerClient({ fileUrl }) {
       }}
     >
       <div style={{ padding: 12, display: "flex", gap: 8, alignItems: "center" }}>
-        <button onClick={() => setPageNumber((p) => Math.max(1, p - 1))} style={{ padding: "6px 10px" }}>
-          Prev
-        </button>
+        
 
         <div style={{ minWidth: 80, textAlign: "center" }}>
           {pageNumber} {numPages ? `of ${numPages}` : ""}
         </div>
 
-        <button onClick={() => setPageNumber((p) => Math.min(numPages || 1, p + 1))} style={{ padding: "6px 10px" }}>
-          Next
-        </button>
-
-        <button onClick={() => setScale((s) => Math.min(3, +(s + 0.1).toFixed(2)))} style={{ padding: "6px 10px" }}>
-          Zoom +
-        </button>
-
-        <button onClick={() => setScale((s) => Math.max(0.5, +(s - 0.1).toFixed(2)))} style={{ padding: "6px 10px" }}>
-          Zoom -
-        </button>
-
-        <button onClick={() => { setScale(1); setPageNumber(1); }} style={{ padding: "6px 10px" }}>
-          Reset
-        </button>
+        
 
         <a href={fileUrl} target="_blank" rel="noreferrer" style={{ marginLeft: "auto" }}>
           Open / Download
@@ -104,7 +88,7 @@ export default function PDFViewerClient({ fileUrl }) {
             <div style={{ fontSize: 18, fontWeight: 600 }}>Unable to preview this PDF</div>
             <div style={{ maxWidth: 420 }}>{error}</div>
             <a href={fileUrl} target="_blank" rel="noreferrer" style={{ color: "#60a5fa" }}>
-              Open / Download PDF
+              Open 
             </a>
           </div>
         ) : (

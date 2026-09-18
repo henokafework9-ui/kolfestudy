@@ -100,8 +100,8 @@ export default function Navbar() {
           >
             <div style={{ position: 'relative' }}>
               <img 
-                src="/logo.jpeg" 
-                alt="Kolfe Study School Logo" 
+                src="/icon.png" 
+                alt="Kolfe Study  Logo" 
                 style={{ 
                   width: '42px', 
                   height: '42px', 

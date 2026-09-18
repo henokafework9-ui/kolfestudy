@@ -1000,7 +1000,7 @@ export default function BooksPage() {
                   100% Free
                 </div>
                 <div style={{ fontSize: "0.8rem", color: "#94a3b8" }}>
-                  Always Offline Ready
+                  Always online Ready
                 </div>
               </div>
             </div>

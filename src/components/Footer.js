@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="footer-brand">
             <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
               <img 
-                src="/logo.jpeg" 
+                src="/icon.png" 
                 alt="Kolfe Study Logo" 
                 style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #818cf8' }} 
               />
